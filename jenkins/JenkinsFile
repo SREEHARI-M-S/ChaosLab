@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    parameters {
+        choice(name: 'CHAOS_TYPE', choices: ['CPU_HOG', 'KILL_APP', 'NETWORK_DELAY'], description: 'Choose chaos type')
+    }
+    stages {
+        stage ('Run Chaos') {
+            steps {
+                script {
+                    if (params.CHAOS_TYPE == 'CPU_HOG') {
+                        sh './chaos_scripts/cpu_hog.sh &'
+                    } else if (params.CHAOS_TYPE == 'KILL_APP') {
+                        sh './chaos_scripts/kill_app.sh'
+                    } else if (params.CHAOS_TYPE == 'NETWORK_DELAY') {
+                        sh './chaos_scripts/network_delay.sh'
+                    }
+                }
+            }
+        }
+    }
+}
