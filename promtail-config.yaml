@@ -6,13 +6,13 @@ positions:
   filename: /tmp/positions.yaml
 
 clients:
-  -url: http://loki:3100/loki/api/v1/push
+  - url: http://loki:3100/loki/api/v1/push
 
 scrape_configs:
-  - job_name: flask_app
+  - job_name: user-app-logs
     static_configs:
       - targets:
-        - localhost
+          - localhost
         labels:
-          job: flask_app
-          __path__: /var/log/*.log
+          job: user-app
+          __path__: /var/log/user_app.log
